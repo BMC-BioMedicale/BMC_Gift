@@ -29,10 +29,6 @@
         }
     </script>
 
-    <!-- Firebase App & Firestore SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
@@ -112,14 +108,15 @@
             </div>
 
             <div class="rounded-xl overflow-hidden bg-emerald-950/80">
-<iframe 
-  width="100%" 
-  height="300" 
-  scrolling="no" 
-  frameborder="no" 
-  allow="autoplay" 
-  src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ahmed-habib-816298036/sets/muslim-list&color=%23004d40&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
-</iframe>
+                <iframe 
+                    id="scPlayer"
+                    width="100%" 
+                    height="300" 
+                    scrolling="no" 
+                    frameborder="no" 
+                    allow="autoplay" 
+                    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ahmed-habib-816298036/sets/muslim-list&color=%23004d40&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
+                </iframe>
             </div>
         </div>
 
@@ -162,12 +159,12 @@
 
         <!-- Quick Actions -->
         <div class="flex gap-2">
-            <a id="btnSoundCloudDirect" href="https://soundcloud.com" target="_blank" class="flex-1 glass-card hover:bg-emerald-800/40 border border-gold-500/30 rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-gold-300 font-medium text-xs transition-all">
+            <a id="btnSoundCloudDirect" href="https://soundcloud.com/ahmed-habib-816298036/sets/muslim-list" target="_blank" class="flex-1 glass-card hover:bg-emerald-800/40 border border-gold-500/30 rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-gold-300 font-medium text-xs transition-all">
                 <i class="fa-brands fa-soundcloud text-orange-400 text-sm"></i>
                 <span>فتح في SoundCloud</span>
             </a>
             
-            <button onclick="shareLink()" class="flex-1 gold-gradient-bg text-slate-950 font-bold rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-xs shadow-lg shadow-gold-500/20 active:scale-95 transition-all">
+            <button type="button" onclick="shareLink(event)" class="flex-1 gold-gradient-bg text-slate-950 font-bold rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-xs shadow-lg shadow-gold-500/20 active:scale-95 transition-all">
                 <i class="fa-solid fa-share-nodes text-sm"></i>
                 <span>مشاركة الرابط</span>
             </button>
@@ -178,7 +175,7 @@
             <p class="text-[11px] text-emerald-300/40">صدقة جارية - تقبل الله منا ومنكم صالح الأعمال</p>
             
             <!-- Secret Admin Lock Icon -->
-            <button onclick="openAdminLogin()" class="mt-4 text-emerald-800 hover:text-gold-500 text-xs transition-colors p-2" title="دخول إدارة الشركة">
+            <button type="button" onclick="openAdminLogin(event)" class="mt-4 text-emerald-800 hover:text-gold-500 text-xs transition-colors p-2" title="دخول إدارة الشركة">
                 <i class="fa-solid fa-lock"></i>
             </button>
         </div>
@@ -192,7 +189,7 @@
                 <h3 class="text-sm font-bold text-gold-400 flex items-center gap-2">
                     <i class="fa-solid fa-user-shield"></i> لوحة إدارة الشركة (BMC)
                 </h3>
-                <button onclick="closeAdminLogin()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" onclick="closeAdminLogin(event)" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
             <div>
@@ -200,7 +197,7 @@
                 <input type="password" id="adminPasswordInput" placeholder="أدخل كلمة السر..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 text-xs focus:outline-none focus:border-gold-400">
             </div>
 
-            <button onclick="verifyAdminPass()" class="w-full gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs">دخول اللوحة</button>
+            <button type="button" onclick="verifyAdminPass(event)" class="w-full gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs">دخول اللوحة</button>
         </div>
     </div>
 
@@ -211,39 +208,39 @@
                 <h3 class="text-base font-bold text-gold-400 flex items-center gap-2">
                     <i class="fa-solid fa-sliders"></i> التحكم في بيانات الـ 100 ميدالية
                 </h3>
-                <button onclick="closeAdminPanel()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button type="button" onclick="closeAdminPanel(event)" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
             <div class="space-y-3 text-xs">
                 <div>
                     <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-image text-gold-400"></i> لوجو الشركة الرسمي</label>
                     <input type="file" id="inputLogoFile" accept="image/*" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2 text-slate-100 text-xs file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-slate-950 hover:file:bg-gold-400">
-                    <button type="button" onclick="resetLogo()" class="text-[10px] text-red-400 hover:underline mt-1 block">استعادة اللوجو الافتراضي</button>
+                    <button type="button" onclick="resetLogo(event)" class="text-[10px] text-red-400 hover:underline mt-1 block">استعادة اللوجو الافتراضي</button>
                 </div>
 
                 <div>
                     <label class="block text-emerald-200 mb-1">اسم القائمة / عنوان الشركة</label>
-                    <input type="text" id="inputTitle" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
+                    <input type="text" id="inputTitle" placeholder="اتركه فارغاً للإبقاء على الحالي" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
                 </div>
 
                 <div>
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-soundcloud text-orange-400"></i> رابط SoundCloud Embed / Playlist</label>
-                    <input type="text" id="inputSoundcloud" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-soundcloud text-orange-400"></i> رابط SoundCloud القائمة</label>
+                    <input type="text" id="inputSoundcloud" placeholder="مثال: https://soundcloud.com/..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
                 </div>
 
                 <div>
                     <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-whatsapp text-emerald-400"></i> رقم الواتساب الرسمي (2010XXXXXXXX)</label>
-                    <input type="text" id="inputWhatsapp" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <input type="text" id="inputWhatsapp" placeholder="مثال: 201012345678" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
                 </div>
 
                 <div>
                     <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-linkedin text-blue-400"></i> رابط صفحة LinkedIn</label>
-                    <input type="text" id="inputLinkedin" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <input type="text" id="inputLinkedin" placeholder="اتركه فارغاً للإبقاء على الحالي" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
                 </div>
 
                 <div>
                     <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-facebook text-blue-400"></i> رابط صفحة Facebook</label>
-                    <input type="text" id="inputFacebook" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <input type="text" id="inputFacebook" placeholder="اتركه فارغاً للإبقاء على الحالي" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
                 </div>
 
                 <div class="border-t border-emerald-800/60 pt-3 mt-2">
@@ -253,8 +250,8 @@
             </div>
 
             <div class="flex gap-2 pt-3">
-                <button onclick="saveAdminSettings()" class="flex-1 gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs shadow-md">حفظ والتحديث الشامل لجميع الميداليات</button>
-                <button onclick="closeAdminPanel()" class="px-4 bg-emerald-900 text-slate-300 rounded-lg text-xs hover:bg-emerald-800">إلغاء</button>
+                <button type="button" onclick="saveAdminSettings(event)" class="flex-1 gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs shadow-md">حفظ وتحديث التغييرات</button>
+                <button type="button" onclick="closeAdminPanel(event)" class="px-4 bg-emerald-900 text-slate-300 rounded-lg text-xs hover:bg-emerald-800">إلغاء</button>
             </div>
         </div>
     </div>
@@ -266,11 +263,11 @@
     </div>
 
     <script>
-        // Default Configuration
-        let currentConfig = {
+        // Configuration
+        const defaultConfig = {
             title: "BMC - Muslim List",
             subtitle: "تلاوات قرآنية عذبة وأذكار الصباح والمساء",
-            soundcloudUrl: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1908905207&color=%23064e3b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+            soundcloudUrl: "https://soundcloud.com/ahmed-habib-816298036/sets/muslim-list",
             whatsapp: "201000000000",
             linkedin: "https://linkedin.com",
             facebook: "https://facebook.com",
@@ -278,19 +275,30 @@
             adminPass: "bmc2026"
         };
 
-        // Firebase Sync Fallback & Local Persistent Storage
+        let currentConfig = Object.assign({}, defaultConfig);
+
         function loadConfig() {
             const saved = localStorage.getItem('bmc_nfc_global_config');
             if (saved) {
-                currentConfig = Object.assign({}, currentConfig, JSON.parse(saved));
+                try {
+                    const parsed = JSON.parse(saved);
+                    currentConfig = Object.assign({}, defaultConfig, parsed);
+                } catch(e) {}
             }
             applyConfigToUI();
+        }
+
+        function formatSoundCloudEmbedUrl(url) {
+            if (!url) return "";
+            if (url.includes('w.soundcloud.com/player')) return url;
+            let cleanUrl = url.split('?')[0];
+            return `https://w.soundcloud.com/player/?url=${encodeURIComponent(cleanUrl)}&color=%23004d40&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
         }
 
         function applyConfigToUI() {
             document.getElementById('displayTitle').innerText = currentConfig.title;
             
-            // Logo Image Handling
+            // Logo Image
             const defaultIcon = document.getElementById('defaultIcon');
             const customLogoImg = document.getElementById('customLogoImg');
 
@@ -303,29 +311,32 @@
                 defaultIcon.classList.remove('hidden');
             }
 
-            // Player iframe
-            if(currentConfig.soundcloudUrl) {
-                document.getElementById('scPlayer').src = currentConfig.soundcloudUrl;
+            // SoundCloud Player iframe
+            if (currentConfig.soundcloudUrl) {
+                document.getElementById('scPlayer').src = formatSoundCloudEmbedUrl(currentConfig.soundcloudUrl);
+                document.getElementById('btnSoundCloudDirect').href = currentConfig.soundcloudUrl.split('?')[0];
             }
 
             // Links
-            document.getElementById('btnWhatsapp').href = currentConfig.whatsapp ? `https://wa.me/${currentConfig.whatsapp}` : '#';
+            document.getElementById('btnWhatsapp').href = currentConfig.whatsapp ? `https://wa.me/${currentConfig.whatsapp.replace(/[^0-9]/g, '')}` : '#';
             document.getElementById('btnLinkedin').href = currentConfig.linkedin || '#';
             document.getElementById('btnFacebook').href = currentConfig.facebook || '#';
-            document.getElementById('btnSoundCloudDirect').href = currentConfig.soundcloudUrl || 'https://soundcloud.com';
         }
 
-        // Admin Auth Flow
-        function openAdminLogin() {
+        // Admin Actions
+        function openAdminLogin(e) {
+            if (e) e.preventDefault();
             document.getElementById('adminPasswordInput').value = '';
             document.getElementById('loginModal').classList.remove('hidden');
         }
 
-        function closeAdminLogin() {
+        function closeAdminLogin(e) {
+            if (e) e.preventDefault();
             document.getElementById('loginModal').classList.add('hidden');
         }
 
-        function verifyAdminPass() {
+        function verifyAdminPass(e) {
+            if (e) e.preventDefault();
             const inputPass = document.getElementById('adminPasswordInput').value;
             if (inputPass === currentConfig.adminPass) {
                 closeAdminLogin();
@@ -336,7 +347,8 @@
             }
         }
 
-        function closeAdminPanel() {
+        function closeAdminPanel(e) {
+            if (e) e.preventDefault();
             document.getElementById('adminPanelModal').classList.add('hidden');
         }
 
@@ -349,41 +361,52 @@
             document.getElementById('inputNewPassword').value = '';
         }
 
-        function resetLogo() {
+        function resetLogo(e) {
+            if (e) e.preventDefault();
             currentConfig.logoBase64 = "";
+            document.getElementById('inputLogoFile').value = "";
             showToast("تم إزالة اللوجو المخصص");
         }
 
-        function saveAdminSettings() {
+        function saveAdminSettings(e) {
+            if (e) e.preventDefault();
+
             const fileInput = document.getElementById('inputLogoFile');
-            const newPass = document.getElementById('inputNewPassword').value;
+            const newPass = document.getElementById('inputNewPassword').value.trim();
 
             const performSave = (logoData) => {
-                currentConfig.title = document.getElementById('inputTitle').value || currentConfig.title;
-                currentConfig.soundcloudUrl = document.getElementById('inputSoundcloud').value || currentConfig.soundcloudUrl;
-                currentConfig.whatsapp = document.getElementById('inputWhatsapp').value || currentConfig.whatsapp;
-                currentConfig.linkedin = document.getElementById('inputLinkedin').value || currentConfig.linkedin;
-                currentConfig.facebook = document.getElementById('inputFacebook').value || currentConfig.facebook;
+                const titleVal = document.getElementById('inputTitle').value.trim();
+                const scVal = document.getElementById('inputSoundcloud').value.trim();
+                const waVal = document.getElementById('inputWhatsapp').value.trim();
+                const liVal = document.getElementById('inputLinkedin').value.trim();
+                const fbVal = document.getElementById('inputFacebook').value.trim();
+
+                // التحديث يتم فقط إذا كان الحقل يحتوي على قيمة لمنع مسح البيانات القديمة
+                if (titleVal !== "") currentConfig.title = titleVal;
+                if (scVal !== "") currentConfig.soundcloudUrl = scVal;
+                if (waVal !== "") currentConfig.whatsapp = waVal;
+                if (liVal !== "") currentConfig.linkedin = liVal;
+                if (fbVal !== "") currentConfig.facebook = fbVal;
                 
                 if (logoData !== null) {
                     currentConfig.logoBase64 = logoData;
                 }
 
-                if (newPass.trim() !== '') {
-                    currentConfig.adminPass = newPass.trim();
+                if (newPass !== "") {
+                    currentConfig.adminPass = newPass;
                 }
 
-                // Persist & Update Global Config
+                // حفظ في LocalStorage وتحديث الواجهة فوراً
                 localStorage.setItem('bmc_nfc_global_config', JSON.stringify(currentConfig));
                 applyConfigToUI();
                 closeAdminPanel();
-                showToast("تم حفظ وتحديث كافة الميداليات بنجاح!");
+                showToast("تم حفظ وتحديث التغييرات بنجاح!");
             };
 
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    performSave(e.target.result);
+                reader.onload = function(evt) {
+                    performSave(evt.target.result);
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
@@ -391,7 +414,8 @@
             }
         }
 
-        function shareLink() {
+        function shareLink(e) {
+            if (e) e.preventDefault();
             if (navigator.share) {
                 navigator.share({
                     title: currentConfig.title,
