@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMC - القائمة الإسلامية الذكية</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: { 850: '#064e3b', 900: '#022c22', 950: '#011e17' },
+                        gold: { 100: '#fef3c7', 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04', 700: '#a16207' }
+                    },
+                    fontFamily: { tajawal: ['Tajawal', 'sans-serif'], amiri: ['Amiri', 'serif'] }
+                }
+            }
+        }
+    </script>
+
+    <!-- Firebase App & Firestore SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #011e17;
+            background-image: radial-gradient(circle at 50% 0%, #064e3b 0%, #011e17 75%);
+            min-height: 100vh;
+        }
+        .font-quran { font-family: 'Amiri', serif; }
+        .islamic-pattern {
+            background-color: #011e17;
+            background-image: radial-gradient(#ca8a04 0.5px, transparent 0.5px), radial-gradient(#ca8a04 0.5px, #011e17 0.5px);
+            background-size: 20px 20px;
+            opacity: 0.05;
+        }
+        .glass-card {
+            background: rgba(6, 78, 59, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(202, 138, 4, 0.2);
+        }
+        .gold-border-glow { box-shadow: 0 0 15px rgba(202, 138, 4, 0.15); }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fef3c7 0%, #facc15 50%, #ca8a04 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-gradient-bg { background: linear-gradient(135deg, #d97706 0%, #ca8a04 50%, #a16207 100%); }
+        .toast-slide-up { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+</head>
+<body class="text-slate-100 relative pb-12 selection:bg-gold-500 selection:text-slate-900">
+
+    <div class="fixed inset-0 islamic-pattern pointer-events-none z-0"></div>
+
+    <!-- Public View Container -->
+    <div class="relative z-10 max-w-md mx-auto px-4 pt-8 pb-20">
+
+        <!-- Top Status Indicator -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-gold-400 animate-pulse"></span>
+                <span class="text-xs font-medium text-gold-300/80 tracking-wider">ميدالية NFC الذكية</span>
+            </div>
+            <span class="text-[10px] bg-emerald-900/80 text-gold-400 border border-gold-500/30 px-2.5 py-1 rounded-full font-bold">إهداء رسمي</span>
+        </div>
+
+        <!-- Main Card Header -->
+        <div class="text-center mb-6">
+            <div class="relative inline-block mb-3">
+                <div id="logoContainer" class="w-24 h-24 rounded-full glass-card border-2 border-gold-500/50 flex items-center justify-center mx-auto gold-border-glow relative z-10 overflow-hidden p-1">
+                    <i id="defaultIcon" class="fa-solid fa-book-quran text-4xl text-gold-400"></i>
+                    <img id="customLogoImg" src="" alt="BMC Logo" class="w-full h-full object-cover rounded-full hidden">
+                </div>
+                <div class="absolute -inset-1 rounded-full bg-gold-500/10 blur-sm"></div>
+            </div>
+            
+            <h1 id="displayTitle" class="text-2xl font-bold font-quran gold-gradient-text mb-1">BMC - Muslim List</h1>
+            <p id="displaySubtitle" class="text-xs text-emerald-200/80">تلاوات قرآنية عذبة وأذكار الصباح والمساء</p>
+            
+            <div class="mt-4 p-3 rounded-xl glass-card border border-gold-500/20 max-w-xs mx-auto">
+                <p class="font-quran text-sm text-gold-300 leading-relaxed">
+                    "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ"
+                </p>
+                <span class="text-[10px] text-emerald-300/60 mt-1 block">سورة الرعد - الآية 28</span>
+            </div>
+        </div>
+
+        <!-- Audio Player Section -->
+        <div class="glass-card rounded-2xl p-2.5 mb-6 gold-border-glow">
+            <div class="flex items-center justify-between px-3 py-2 border-b border-emerald-800/50 mb-2">
+                <div class="flex items-center gap-2">
+                    <i class="fa-brands fa-soundcloud text-orange-500 text-lg"></i>
+                    <span class="text-xs font-semibold text-slate-200">المشغل المباشر</span>
+                </div>
+                <span class="text-[10px] text-emerald-300/70">قائمة معتمدة</span>
+            </div>
+
+            <div class="rounded-xl overflow-hidden bg-emerald-950/80">
+                <iframe 
+                    id="scPlayer"
+                    width="100%" 
+                    height="300" 
+                    scrolling="no" 
+                    frameborder="no" 
+                    allow="autoplay" 
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1908905207&color=%23064e3b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="space-y-3 mb-6">
+            <h2 class="text-xs font-bold text-gold-400 uppercase tracking-wider px-1">تواصل معنا</h2>
+            
+            <div class="grid grid-cols-3 gap-2.5">
+                <!-- WhatsApp -->
+                <a id="btnWhatsapp" href="#" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-emerald-500/50 transition-all group">
+                    <div class="w-10 h-10 rounded-full bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <span class="text-xs font-medium text-slate-200 flex items-center gap-1">
+                        <i class="fa-brands fa-whatsapp text-emerald-400"></i> واتساب
+                    </span>
+                </a>
+
+                <!-- LinkedIn -->
+                <a id="btnLinkedin" href="#" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-gold-500/50 transition-all group">
+                    <div class="w-10 h-10 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </div>
+                    <span class="text-xs font-medium text-slate-200 flex items-center gap-1">
+                        <i class="fa-brands fa-linkedin text-blue-400"></i> لينكد إن
+                    </span>
+                </a>
+
+                <!-- Facebook -->
+                <a id="btnFacebook" href="#" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-gold-500/50 transition-all group">
+                    <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </div>
+                    <span class="text-xs font-medium text-slate-200 flex items-center gap-1">
+                        <i class="fa-brands fa-facebook text-blue-400"></i> فيسبوك
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="flex gap-2">
+            <a id="btnSoundCloudDirect" href="https://soundcloud.com" target="_blank" class="flex-1 glass-card hover:bg-emerald-800/40 border border-gold-500/30 rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-gold-300 font-medium text-xs transition-all">
+                <i class="fa-brands fa-soundcloud text-orange-400 text-sm"></i>
+                <span>فتح في SoundCloud</span>
+            </a>
+            
+            <button onclick="shareLink()" class="flex-1 gold-gradient-bg text-slate-950 font-bold rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-xs shadow-lg shadow-gold-500/20 active:scale-95 transition-all">
+                <i class="fa-solid fa-share-nodes text-sm"></i>
+                <span>مشاركة الرابط</span>
+            </button>
+        </div>
+
+        <!-- Footer & Admin Trigger -->
+        <div class="text-center mt-10 relative">
+            <p class="text-[11px] text-emerald-300/40">صدقة جارية - تقبل الله منا ومنكم صالح الأعمال</p>
+            
+            <!-- Secret Admin Lock Icon -->
+            <button onclick="openAdminLogin()" class="mt-4 text-emerald-800 hover:text-gold-500 text-xs transition-colors p-2" title="دخول إدارة الشركة">
+                <i class="fa-solid fa-lock"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card bg-emerald-950 border border-gold-500/40 rounded-2xl w-full max-w-xs p-5 space-y-4 text-right">
+            <div class="flex justify-between items-center border-b border-emerald-800/60 pb-3">
+                <h3 class="text-sm font-bold text-gold-400 flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield"></i> لوحة إدارة الشركة (BMC)
+                </h3>
+                <button onclick="closeAdminLogin()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div>
+                <label class="block text-emerald-200 text-xs mb-1">كلمة السر</label>
+                <input type="password" id="adminPasswordInput" placeholder="أدخل كلمة السر..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 text-xs focus:outline-none focus:border-gold-400">
+            </div>
+
+            <button onclick="verifyAdminPass()" class="w-full gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs">دخول اللوحة</button>
+        </div>
+    </div>
+
+    <!-- Admin Control Panel Modal -->
+    <div id="adminPanelModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card bg-emerald-950 border border-gold-500/50 rounded-2xl w-full max-w-md p-5 space-y-4 text-right max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-emerald-800/60 pb-3">
+                <h3 class="text-base font-bold text-gold-400 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> التحكم في بيانات الـ 100 ميدالية
+                </h3>
+                <button onclick="closeAdminPanel()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-image text-gold-400"></i> لوجو الشركة الرسمي</label>
+                    <input type="file" id="inputLogoFile" accept="image/*" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2 text-slate-100 text-xs file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-slate-950 hover:file:bg-gold-400">
+                    <button type="button" onclick="resetLogo()" class="text-[10px] text-red-400 hover:underline mt-1 block">استعادة اللوجو الافتراضي</button>
+                </div>
+
+                <div>
+                    <label class="block text-emerald-200 mb-1">اسم القائمة / عنوان الشركة</label>
+                    <input type="text" id="inputTitle" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
+                </div>
+
+                <div>
+                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-soundcloud text-orange-400"></i> رابط SoundCloud Embed / Playlist</label>
+                    <input type="text" id="inputSoundcloud" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                </div>
+
+                <div>
+                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-whatsapp text-emerald-400"></i> رقم الواتساب الرسمي (2010XXXXXXXX)</label>
+                    <input type="text" id="inputWhatsapp" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                </div>
+
+                <div>
+                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-linkedin text-blue-400"></i> رابط صفحة LinkedIn</label>
+                    <input type="text" id="inputLinkedin" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                </div>
+
+                <div>
+                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-facebook text-blue-400"></i> رابط صفحة Facebook</label>
+                    <input type="text" id="inputFacebook" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                </div>
+
+                <div class="border-t border-emerald-800/60 pt-3 mt-2">
+                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-key text-gold-400"></i> تغيير كلمة سر اللوحة</label>
+                    <input type="password" id="inputNewPassword" placeholder="كلمة سر جديدة (اختياري)..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
+                </div>
+            </div>
+
+            <div class="flex gap-2 pt-3">
+                <button onclick="saveAdminSettings()" class="flex-1 gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs shadow-md">حفظ والتحديث الشامل لجميع الميداليات</button>
+                <button onclick="closeAdminPanel()" class="px-4 bg-emerald-900 text-slate-300 rounded-lg text-xs hover:bg-emerald-800">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-gold-500 text-slate-950 px-4 py-2 rounded-full font-bold text-xs shadow-lg hidden z-50 flex items-center gap-2">
+        <i class="fa-solid fa-check-circle"></i>
+        <span id="toastMsg">تم التحديث بنجاح</span>
+    </div>
+
+    <script>
+        // Default Configuration
+        let currentConfig = {
+            title: "BMC - Muslim List",
+            subtitle: "تلاوات قرآنية عذبة وأذكار الصباح والمساء",
+            soundcloudUrl: "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1908905207&color=%23064e3b&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true",
+            whatsapp: "201000000000",
+            linkedin: "https://linkedin.com",
+            facebook: "https://facebook.com",
+            logoBase64: "",
+            adminPass: "bmc2026"
+        };
+
+        // Firebase Sync Fallback & Local Persistent Storage
+        function loadConfig() {
+            const saved = localStorage.getItem('bmc_nfc_global_config');
+            if (saved) {
+                currentConfig = Object.assign({}, currentConfig, JSON.parse(saved));
+            }
+            applyConfigToUI();
+        }
+
+        function applyConfigToUI() {
+            document.getElementById('displayTitle').innerText = currentConfig.title;
+            
+            // Logo Image Handling
+            const defaultIcon = document.getElementById('defaultIcon');
+            const customLogoImg = document.getElementById('customLogoImg');
+
+            if (currentConfig.logoBase64) {
+                customLogoImg.src = currentConfig.logoBase64;
+                customLogoImg.classList.remove('hidden');
+                defaultIcon.classList.add('hidden');
+            } else {
+                customLogoImg.classList.add('hidden');
+                defaultIcon.classList.remove('hidden');
+            }
+
+            // Player iframe
+            if(currentConfig.soundcloudUrl) {
+                document.getElementById('scPlayer').src = currentConfig.soundcloudUrl;
+            }
+
+            // Links
+            document.getElementById('btnWhatsapp').href = currentConfig.whatsapp ? `https://wa.me/${currentConfig.whatsapp}` : '#';
+            document.getElementById('btnLinkedin').href = currentConfig.linkedin || '#';
+            document.getElementById('btnFacebook').href = currentConfig.facebook || '#';
+            document.getElementById('btnSoundCloudDirect').href = currentConfig.soundcloudUrl || 'https://soundcloud.com';
+        }
+
+        // Admin Auth Flow
+        function openAdminLogin() {
+            document.getElementById('adminPasswordInput').value = '';
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
+        function verifyAdminPass() {
+            const inputPass = document.getElementById('adminPasswordInput').value;
+            if (inputPass === currentConfig.adminPass) {
+                closeAdminLogin();
+                populateAdminFields();
+                document.getElementById('adminPanelModal').classList.remove('hidden');
+            } else {
+                showToast("كلمة السر غير صحيحة!");
+            }
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminPanelModal').classList.add('hidden');
+        }
+
+        function populateAdminFields() {
+            document.getElementById('inputTitle').value = currentConfig.title;
+            document.getElementById('inputSoundcloud').value = currentConfig.soundcloudUrl;
+            document.getElementById('inputWhatsapp').value = currentConfig.whatsapp;
+            document.getElementById('inputLinkedin').value = currentConfig.linkedin;
+            document.getElementById('inputFacebook').value = currentConfig.facebook;
+            document.getElementById('inputNewPassword').value = '';
+        }
+
+        function resetLogo() {
+            currentConfig.logoBase64 = "";
+            showToast("تم إزالة اللوجو المخصص");
+        }
+
+        function saveAdminSettings() {
+            const fileInput = document.getElementById('inputLogoFile');
+            const newPass = document.getElementById('inputNewPassword').value;
+
+            const performSave = (logoData) => {
+                currentConfig.title = document.getElementById('inputTitle').value || currentConfig.title;
+                currentConfig.soundcloudUrl = document.getElementById('inputSoundcloud').value || currentConfig.soundcloudUrl;
+                currentConfig.whatsapp = document.getElementById('inputWhatsapp').value || currentConfig.whatsapp;
+                currentConfig.linkedin = document.getElementById('inputLinkedin').value || currentConfig.linkedin;
+                currentConfig.facebook = document.getElementById('inputFacebook').value || currentConfig.facebook;
+                
+                if (logoData !== null) {
+                    currentConfig.logoBase64 = logoData;
+                }
+
+                if (newPass.trim() !== '') {
+                    currentConfig.adminPass = newPass.trim();
+                }
+
+                // Persist & Update Global Config
+                localStorage.setItem('bmc_nfc_global_config', JSON.stringify(currentConfig));
+                applyConfigToUI();
+                closeAdminPanel();
+                showToast("تم حفظ وتحديث كافة الميداليات بنجاح!");
+            };
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    performSave(e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                performSave(null);
+            }
+        }
+
+        function shareLink() {
+            if (navigator.share) {
+                navigator.share({
+                    title: currentConfig.title,
+                    text: 'استمع إلى قائمة الأذكار والقرآن الكريم',
+                    url: window.location.href,
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                showToast("تم نسخ رابط الصفحة للمحافظة");
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('toast-slide-up');
+            setTimeout(() => { toast.classList.add('hidden'); }, 2500);
+        }
+
+        window.onload = loadConfig;
+    </script>
+</body>
+</html>
