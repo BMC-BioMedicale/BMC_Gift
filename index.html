@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <title>BMC - القائمة الإسلامية الذكية</title>
     
     <!-- Google Fonts -->
@@ -14,10 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=2.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?v=2.0"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -131,7 +128,7 @@
             
             <div class="grid grid-cols-2 gap-2.5">
                 <!-- Branch 1: Kafr El-Sheikh -->
-                <a id="btnLocKafr" href="https://maps.app.goo.gl/AeZui84zdKWSDQq68" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-gold-500/50 transition-all group text-center">
+                <a id="btnLocKafr" href="https://maps.google.com" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-gold-500/50 transition-all group text-center">
                     <div class="w-10 h-10 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-building"></i>
                     </div>
@@ -156,7 +153,7 @@
 
         <!-- Google Reviews Button Section -->
         <div class="mb-6">
-            <a id="btnReview" href="https://search.google.com/local/writereview?placeid=ChIJA1vSoRCr9xQRMoDPSWF-2JE" target="_blank" class="glass-card rounded-2xl p-4 border border-gold-500/40 hover:bg-emerald-800/40 transition-all flex items-center justify-between group">
+            <a id="btnReview" href="https://g.page" target="_blank" class="glass-card rounded-2xl p-4 border border-gold-500/40 hover:bg-emerald-800/40 transition-all flex items-center justify-between group">
                 <div class="flex items-center gap-3">
                     <div class="w-11 h-11 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-star"></i>
@@ -231,7 +228,6 @@
         <div class="text-center mt-10 relative">
             <p class="text-[11px] text-emerald-300/40">صدقة جارية - تقبل الله منا ومنكم صالح الأعمال</p>
             
-            <!-- Secret Admin Lock Icon -->
             <button type="button" onclick="openAdminLogin(event)" class="mt-4 text-emerald-800 hover:text-gold-500 text-xs transition-colors p-2" title="دخول إدارة الشركة">
                 <i class="fa-solid fa-lock"></i>
             </button>
@@ -277,12 +273,12 @@
 
                 <div>
                     <label class="block text-emerald-200 mb-1">اسم القائمة / عنوان الشركة</label>
-                    <input type="text" id="inputTitle" placeholder="تعديل اسم القائمة..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
+                    <input type="text" id="inputTitle" placeholder="اتركه فارغاً للإبقاء على الحالي" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
                 </div>
 
                 <div>
                     <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-soundcloud text-orange-400"></i> رابط SoundCloud القائمة</label>
-                    <input type="text" id="inputSoundcloud" placeholder="رابط قائمة ساوند كلاود..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <input type="text" id="inputSoundcloud" placeholder="مثال: https://soundcloud.com/..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
                 </div>
 
                 <div class="border-t border-emerald-800/60 pt-2">
@@ -297,7 +293,7 @@
 
                 <div>
                     <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-star text-amber-400"></i> رابط تقييم العملاء (Google Review Link)</label>
-                    <input type="text" id="inputReviewUrl" placeholder="رابط تقييم جوجل المباشر" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <input type="text" id="inputReviewUrl" placeholder="رابط تقييم جوجل لشركتكم" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
                 </div>
 
                 <div class="border-t border-emerald-800/60 pt-2">
@@ -307,22 +303,22 @@
 
                 <div>
                     <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-linkedin text-blue-400"></i> رابط صفحة LinkedIn</label>
-                    <input type="text" id="inputLinkedin" placeholder="رابط لينكد إن..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <input type="text" id="inputLinkedin" placeholder="اتركه فارغاً للإبقاء على الحالي" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
                 </div>
 
                 <div>
                     <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-facebook text-blue-400"></i> رابط صفحة Facebook</label>
-                    <input type="text" id="inputFacebook" placeholder="رابط فيسبوك..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <input type="text" id="inputFacebook" placeholder="اتركه فارغاً للإبقاء على الحالي" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
                 </div>
 
                 <div class="border-t border-emerald-800/60 pt-3 mt-2">
                     <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-key text-gold-400"></i> تغيير كلمة سر اللوحة</label>
-                    <input type="password" id="inputNewPassword" placeholder="كلمة سر جديدة..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
+                    <input type="password" id="inputNewPassword" placeholder="كلمة سر جديدة (اختياري)..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
                 </div>
             </div>
 
             <div class="flex gap-2 pt-3">
-                <button type="button" onclick="saveAdminSettings(event)" class="flex-1 gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs shadow-md">حفظ وتحديث التغييرات</button>
+                <button type="button" id="saveBtn" onclick="saveAdminSettings(event)" class="flex-1 gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs shadow-md">حفظ وتحديث التغييرات</button>
                 <button type="button" onclick="closeAdminPanel(event)" class="px-4 bg-emerald-900 text-slate-300 rounded-lg text-xs hover:bg-emerald-800">إلغاء</button>
             </div>
         </div>
@@ -335,14 +331,18 @@
     </div>
 
     <script>
-        // Static Hardcoded Defaults to work on ALL mobile devices immediately
+        // JSONBin Integration Config
+        const BIN_ID = "6aa5ef51ffd5d16053ffe22e";
+        const API_KEY = "$2a$10$aE5HrQtOq9c.pmZ5/LENeebVURVzbsql90JeT43vDyKEsGtNSk7Xu";
+        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
         const defaultConfig = {
             title: "BMC - Muslim List",
             subtitle: "تلاوات قرآنية عذبة وأذكار الصباح والمساء",
             soundcloudUrl: "https://soundcloud.com/ahmed-habib-816298036/sets/muslim-list",
-            kafrLoc: "https://maps.app.goo.gl/AeZui84zdKWSDQq68",
+            kafrLoc: "https://maps.google.com",
             fifthLoc: "https://maps.google.com",
-            reviewUrl: "https://search.google.com/local/writereview?placeid=ChIJA1vSoRCr9xQRMoDPSWF-2JE",
+            reviewUrl: "https://g.page",
             whatsapp: "201000000000",
             linkedin: "https://linkedin.com",
             facebook: "https://facebook.com",
@@ -352,20 +352,35 @@
 
         let currentConfig = Object.assign({}, defaultConfig);
 
-        function loadConfig() {
-            // Force clear old broken cache version on mobile
-            localStorage.removeItem('bmc_nfc_global_config');
-            
-            const saved = localStorage.getItem('bmc_nfc_v3');
-            if (saved) {
-                try {
-                    const parsed = JSON.parse(saved);
-                    currentConfig = Object.assign({}, defaultConfig, parsed);
-                } catch(e) {
-                    currentConfig = Object.assign({}, defaultConfig);
+        // جلب البيانات من السحابة مباشرة عند فتح الصفحة من أي جهاز
+        async function loadConfigFromCloud() {
+            try {
+                const response = await fetch(`${API_URL}/latest`, {
+                    headers: {
+                        'X-Master-Key': API_KEY
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    currentConfig = Object.assign({}, defaultConfig, data.record);
+                    localStorage.setItem('bmc_nfc_global_config', JSON.stringify(currentConfig));
+                } else {
+                    loadLocalFallback();
                 }
+            } catch (error) {
+                console.error("Cloud fetch failed, using local cache:", error);
+                loadLocalFallback();
             }
             applyConfigToUI();
+        }
+
+        function loadLocalFallback() {
+            const saved = localStorage.getItem('bmc_nfc_global_config');
+            if (saved) {
+                try {
+                    currentConfig = Object.assign({}, defaultConfig, JSON.parse(saved));
+                } catch(e) {}
+            }
         }
 
         function formatSoundCloudEmbedUrl(url) {
@@ -451,13 +466,17 @@
             showToast("تم إزالة اللوجو المخصص");
         }
 
-        function saveAdminSettings(e) {
+        async function saveAdminSettings(e) {
             if (e) e.preventDefault();
+
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.disabled = true;
+            saveBtn.innerText = "جاري الحفظ بالسحابة...";
 
             const fileInput = document.getElementById('inputLogoFile');
             const newPass = document.getElementById('inputNewPassword').value.trim();
 
-            const performSave = (logoData) => {
+            const performSave = async (logoData) => {
                 const titleVal = document.getElementById('inputTitle').value.trim();
                 const scVal = document.getElementById('inputSoundcloud').value.trim();
                 const kafrVal = document.getElementById('inputKafrLoc').value.trim();
@@ -484,10 +503,32 @@
                     currentConfig.adminPass = newPass;
                 }
 
-                localStorage.setItem('bmc_nfc_v3', JSON.stringify(currentConfig));
-                applyConfigToUI();
-                closeAdminPanel();
-                showToast("تم حفظ التغييرات على هذا الجهاز!");
+                // حفظ البيانات بالسحابة مع التوثيق بواسطة الـ Master Key
+                try {
+                    const res = await fetch(API_URL, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Master-Key': API_KEY
+                        },
+                        body: JSON.stringify(currentConfig)
+                    });
+
+                    if (res.ok) {
+                        localStorage.setItem('bmc_nfc_global_config', JSON.stringify(currentConfig));
+                        applyConfigToUI();
+                        closeAdminPanel();
+                        showToast("تم الحفظ بالسحابة والتسميع على كافة الأجهزة!");
+                    } else {
+                        showToast("خطأ في الاتصال بالسحابة!");
+                    }
+                } catch (err) {
+                    console.error("Save failed:", err);
+                    showToast("فشل الاتصال بالسحابة، تم الحفظ محلياً فقط");
+                } finally {
+                    saveBtn.disabled = false;
+                    saveBtn.innerText = "حفظ وتحديث التغييرات";
+                }
             };
 
             if (fileInput.files && fileInput.files[0]) {
@@ -520,10 +561,10 @@
             document.getElementById('toastMsg').innerText = msg;
             toast.classList.remove('hidden');
             toast.classList.add('toast-slide-up');
-            setTimeout(() => { toast.classList.add('hidden'); }, 2500);
+            setTimeout(() => { toast.classList.add('hidden'); }, 3000);
         }
 
-        window.onload = loadConfig;
+        window.onload = loadConfigFromCloud;
     </script>
 </body>
 </html>
