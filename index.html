@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMC - القائمة الإسلامية الذكية</title>
-    
+    <title>BMC - Muslim List</title>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,10 +20,21 @@
             theme: {
                 extend: {
                     colors: {
-                        emerald: { 850: '#064e3b', 900: '#022c22', 950: '#011e17' },
-                        gold: { 100: '#fef3c7', 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04', 700: '#a16207' }
+                        bmcGreen: {
+                            800: '#064e3b',
+                            900: '#022c22',
+                            950: '#011c15'
+                        },
+                        bmcGold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        }
                     },
-                    fontFamily: { tajawal: ['Tajawal', 'sans-serif'], amiri: ['Amiri', 'serif'] }
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                        amiri: ['Amiri', 'serif']
+                    }
                 }
             }
         }
@@ -32,371 +43,362 @@
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: #011e17;
-            background-image: radial-gradient(circle at 50% 0%, #064e3b 0%, #011e17 75%);
+            background-color: #011c15;
+            background-image: radial-gradient(circle at 50% 0%, #064e3b 0%, #011c15 85%);
             min-height: 100vh;
         }
-        .font-quran { font-family: 'Amiri', serif; }
         .islamic-pattern {
-            background-color: #011e17;
-            background-image: radial-gradient(#ca8a04 0.5px, transparent 0.5px), radial-gradient(#ca8a04 0.5px, #011e17 0.5px);
+            background-color: #011c15;
+            background-image: radial-gradient(#f59e0b 0.5px, transparent 0.5px), radial-gradient(#f59e0b 0.5px, #011c15 0.5px);
             background-size: 20px 20px;
-            opacity: 0.05;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.04;
         }
         .glass-card {
-            background: rgba(6, 78, 59, 0.35);
+            background: rgba(2, 44, 34, 0.55);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(202, 138, 4, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.2);
         }
-        .gold-border-glow { box-shadow: 0 0 15px rgba(202, 138, 4, 0.15); }
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
         .gold-gradient-text {
-            background: linear-gradient(135deg, #fef3c7 0%, #facc15 50%, #ca8a04 100%);
+            background: linear-gradient(135deg, #fef3c7 0%, #f59e0b 50%, #d97706 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .gold-gradient-bg { background: linear-gradient(135deg, #d97706 0%, #ca8a04 50%, #a16207 100%); }
-        .toast-slide-up { animation: slideUp 0.3s ease-out forwards; }
-        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .btn-gold-grad {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        .toast-slide-up {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
-<body class="text-slate-100 relative pb-12 selection:bg-gold-500 selection:text-slate-900">
+<body class="text-slate-100 relative pb-12 selection:bg-bmcGold-500 selection:text-slate-900">
 
     <div class="fixed inset-0 islamic-pattern pointer-events-none z-0"></div>
 
-    <!-- Public View Container -->
+    <!-- Container الرئيسي -->
     <div class="relative z-10 max-w-md mx-auto px-4 pt-8 pb-20">
 
-        <!-- Top Status Indicator -->
-        <div class="flex justify-between items-center mb-6">
-            <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-gold-400 animate-pulse"></span>
-                <span class="text-xs font-medium text-gold-300/80 tracking-wider">/span>
-            </div>
-            <span class="text-[10px] bg-emerald-900/80 text-gold-400 border border-gold-500/30 px-2.5 py-1 rounded-full font-bold">إهداء رسمي</span>
-        </div>
-
-        <!-- Main Card Header -->
+        <!-- Top Header & Logo Section -->
         <div class="text-center mb-6">
+            <!-- زر إهداء رسمي بدون التاج الخاص بميدالية NFC -->
+            <div class="flex items-center justify-center mb-4">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-bmcGold-500/10 border border-bmcGold-500/30 text-bmcGold-400">
+                    <i class="fa-solid fa-gift text-xs"></i>
+                    إهداء رسمي
+                </span>
+            </div>
+
+            <!-- اللوجو الرئيسي -->
             <div class="relative inline-block mb-3">
-                <div id="logoContainer" class="w-24 h-24 rounded-full glass-card border-2 border-gold-500/50 flex items-center justify-center mx-auto gold-border-glow relative z-10 overflow-hidden p-1">
-                    <i id="defaultIcon" class="fa-solid fa-book-quran text-4xl text-gold-400"></i>
+                <div id="logoContainer" class="w-24 h-24 rounded-full glass-card border-2 border-bmcGold-400/50 flex items-center justify-center mx-auto gold-border-glow relative z-10 overflow-hidden p-1">
+                    <i id="defaultIcon" class="fa-solid fa-mosque text-4xl text-bmcGold-400"></i>
                     <img id="customLogoImg" src="" alt="BMC Logo" class="w-full h-full object-cover rounded-full hidden">
                 </div>
-                <div class="absolute -inset-1 rounded-full bg-gold-500/10 blur-sm"></div>
+                <div class="absolute -inset-1 rounded-full bg-bmcGold-500/10 blur-md"></div>
             </div>
-            
-            <h1 id="displayTitle" class="text-2xl font-bold font-quran gold-gradient-text mb-1">BMC - Muslim List</h1>
-            <p id="displaySubtitle" class="text-xs text-emerald-200/80">تلاوات قرآنية عذبة وأذكار الصباح والمساء</p>
-            
-            <div class="mt-4 p-3 rounded-xl glass-card border border-gold-500/20 max-w-xs mx-auto">
-                <p class="font-quran text-sm text-gold-300 leading-relaxed">
+
+            <h1 id="displayTitle" class="text-2xl font-bold gold-gradient-text mb-1">BMC - Muslim List</h1>
+            <p id="displaySubtitle" class="text-xs text-emerald-200/80 font-medium">تلاوات قرآنية عذبة وأذكار الصباح والمساء</p>
+
+            <div class="mt-4 p-3 rounded-2xl glass-card border border-bmcGold-500/20 max-w-xs mx-auto">
+                <p class="font-amiri text-base text-bmcGold-400 leading-relaxed">
                     "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ"
                 </p>
-                <span class="text-[10px] text-emerald-300/60 mt-1 block">سورة الرعد - الآية 28</span>
+                <span class="text-[10px] text-emerald-300/60 block mt-1">سورة الرعد - الآية 28</span>
             </div>
         </div>
 
-        <!-- Audio Player Section -->
-        <div class="glass-card rounded-2xl p-2.5 mb-6 gold-border-glow">
-            <div class="flex items-center justify-between px-3 py-2 border-b border-emerald-800/50 mb-2">
-                <div class="flex items-center gap-2">
-                    <i class="fa-brands fa-soundcloud text-orange-500 text-lg"></i>
-                    <span class="text-xs font-semibold text-slate-200">المشغل المباشر</span>
-                </div>
-                <span class="text-[10px] text-emerald-300/70">قائمة معتمدة</span>
-            </div>
+        <!-- المشغل المباشر (Direct Audio Player) -->
+        <div class="space-y-3 mb-6">
+            <h2 class="text-xs font-bold text-bmcGold-400 uppercase tracking-wider px-1 flex items-center justify-between">
+                <span class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-play text-bmcGold-400"></i> المشغل المباشر
+                </span>
+                <span class="text-[10px] bg-emerald-950/80 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-800/50">قائمة معتمدة</span>
+            </h2>
 
-            <div class="rounded-xl overflow-hidden bg-emerald-950/80">
-                <iframe 
-                    id="scPlayer"
-                    width="100%" 
-                    height="300" 
-                    scrolling="no" 
-                    frameborder="no" 
-                    allow="autoplay" 
-                    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/ahmed-habib-816298036/sets/muslim-list&color=%23004d40&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
+            <div class="glass-card rounded-2xl p-2.5 overflow-hidden border border-bmcGold-500/30 shadow-lg">
+                <iframe id="audioPlayerIframe" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" 
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1149491629&color=%23f59e0b&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
                 </iframe>
             </div>
         </div>
 
-        <!-- Branches Locations Section -->
+        <!-- الأذكار والمأثورات اليومية -->
         <div class="space-y-3 mb-6">
-            <h2 class="text-xs font-bold text-gold-400 uppercase tracking-wider px-1 flex items-center gap-1.5">
-                <i class="fa-solid fa-location-dot text-red-400"></i> فروع الشركة ومواقعنا
+            <h2 class="text-xs font-bold text-bmcGold-400 uppercase tracking-wider px-1 flex items-center gap-1.5">
+                <i class="fa-solid fa-book-open text-bmcGold-400"></i> الأذكار اليومية
             </h2>
-            
+
             <div class="grid grid-cols-2 gap-2.5">
-                <!-- Branch 1: Kafr El-Sheikh -->
-                <a id="btnLocKafr" href="https://maps.google.com" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-gold-500/50 transition-all group text-center">
-                    <div class="w-10 h-10 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-building"></i>
+                <a id="btnAzkarSabah" href="#" target="_blank" class="glass-card rounded-2xl p-3.5 flex items-center justify-between hover:bg-bmcGreen-800/50 hover:border-bmcGold-500/50 transition-all group">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-base group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-slate-100 block">أذكار الصباح</span>
+                            <span class="text-[10px] text-emerald-300/70">قراءة واستماع</span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-xs font-bold text-slate-100 block">فرع كفر الشيخ</span>
-                        <span class="text-[10px] text-emerald-300/70">فتح الخريطة <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-0.5"></i></span>
-                    </div>
+                    <i class="fa-solid fa-chevron-left text-xs text-bmcGold-400 group-hover:-translate-x-1 transition-transform"></i>
                 </a>
 
-                <!-- Branch 2: Fifth Settlement -->
-                <a id="btnLocFifth" href="https://maps.google.com" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-gold-500/50 transition-all group text-center">
-                    <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-city"></i>
+                <a id="btnAzkarMasaa" href="#" target="_blank" class="glass-card rounded-2xl p-3.5 flex items-center justify-between hover:bg-bmcGreen-800/50 hover:border-bmcGold-500/50 transition-all group">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-base group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-moon"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-slate-100 block">أذكار المساء</span>
+                            <span class="text-[10px] text-emerald-300/70">قراءة واستماع</span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="text-xs font-bold text-slate-100 block">فرع التجمع الخامس</span>
-                        <span class="text-[10px] text-emerald-300/70">القاهرة الجديدة <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-0.5"></i></span>
-                    </div>
+                    <i class="fa-solid fa-chevron-left text-xs text-bmcGold-400 group-hover:-translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </div>
 
-        <!-- Google Reviews Button Section -->
-        <div class="mb-6">
-            <a id="btnReview" href="https://g.page" target="_blank" class="glass-card rounded-2xl p-4 border border-gold-500/40 hover:bg-emerald-800/40 transition-all flex items-center justify-between group">
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="text-right">
-                        <div class="flex items-center gap-1 text-gold-400 text-xs mb-0.5">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+        <!-- تلاوات وأقسام ممتازة -->
+        <div class="space-y-3 mb-6">
+            <h2 class="text-xs font-bold text-bmcGold-400 uppercase tracking-wider px-1 flex items-center gap-1.5">
+                <i class="fa-solid fa-kaaba text-bmcGold-400"></i> الروابط القرآنية والمباشرة
+            </h2>
+
+            <div class="space-y-2">
+                <a id="btnQuranRadio" href="#" target="_blank" class="glass-card rounded-2xl p-3.5 flex items-center justify-between hover:bg-bmcGreen-800/50 hover:border-bmcGold-500/50 transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-bmcGold-500/10 text-bmcGold-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-radio"></i>
                         </div>
-                        <span class="text-xs font-bold text-slate-100 block">أضف تقييمك للشركة</span>
-                        <span class="text-[10px] text-emerald-300/70">رأيك يهمنا ويساعدنا على التطوير</span>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-slate-100 block">إذاعة القرآن الكريم</span>
+                            <span class="text-[10px] text-emerald-300/70">بث مباشر على مدار 24 ساعة</span>
+                        </div>
                     </div>
-                </div>
-                <i class="fa-solid fa-chevron-left text-gold-400 text-sm group-hover:-translate-x-1 transition-transform"></i>
-            </a>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-bmcGold-400"></i>
+                </a>
+
+                <a id="btnFullQuran" href="#" target="_blank" class="glass-card rounded-2xl p-3.5 flex items-center justify-between hover:bg-bmcGreen-800/50 hover:border-bmcGold-500/50 transition-all group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-quran"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-slate-100 block">المصحف الشريف كاملاً</span>
+                            <span class="text-[10px] text-emerald-300/70">تلاوات بمختلف أصوات القراء</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-bmcGold-400"></i>
+                </a>
+            </div>
         </div>
 
-        <!-- Social Links -->
+        <!-- منصات التواصل مع BMC -->
         <div class="space-y-3 mb-6">
-            <h2 class="text-xs font-bold text-gold-400 uppercase tracking-wider px-1">تواصل معنا</h2>
-            
-            <div class="grid grid-cols-3 gap-2.5">
-                <!-- WhatsApp -->
-                <a id="btnWhatsapp" href="#" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-emerald-500/50 transition-all group">
-                    <div class="w-10 h-10 rounded-full bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+            <h2 class="text-xs font-bold text-bmcGold-400 uppercase tracking-wider px-1">تواصل مع شركة BMC</h2>
+
+            <div class="grid grid-cols-4 gap-2">
+                <a id="btnWhatsapp" href="#" target="_blank" class="glass-card rounded-2xl p-2.5 flex flex-col items-center justify-center gap-1.5 hover:bg-bmcGreen-800/40 hover:border-emerald-500/50 transition-all group">
+                    <div class="w-9 h-9 rounded-full bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
                         <i class="fa-brands fa-whatsapp"></i>
                     </div>
-                    <span class="text-xs font-medium text-slate-200 flex items-center gap-1">
-                        <i class="fa-brands fa-whatsapp text-emerald-400"></i> واتساب
-                    </span>
+                    <span class="text-[11px] font-medium text-slate-200">واتساب</span>
                 </a>
 
-                <!-- LinkedIn -->
-                <a id="btnLinkedin" href="#" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-gold-500/50 transition-all group">
-                    <div class="w-10 h-10 rounded-full bg-blue-600/20 text-blue-400 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
-                        <i class="fa-brands fa-linkedin-in"></i>
+                <a id="btnWebsite" href="#" target="_blank" class="glass-card rounded-2xl p-2.5 flex flex-col items-center justify-center gap-1.5 hover:bg-bmcGreen-800/40 hover:border-bmcGold-500/50 transition-all group">
+                    <div class="w-9 h-9 rounded-full bg-bmcGold-500/20 text-bmcGold-400 flex items-center justify-center text-base group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-globe"></i>
                     </div>
-                    <span class="text-xs font-medium text-slate-200 flex items-center gap-1">
-                        <i class="fa-brands fa-linkedin text-blue-400"></i> لينكد إن
-                    </span>
+                    <span class="text-[11px] font-medium text-slate-200">الموقع</span>
                 </a>
 
-                <!-- Facebook -->
-                <a id="btnFacebook" href="#" target="_blank" class="glass-card rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-emerald-800/40 hover:border-gold-500/50 transition-all group">
-                    <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                <a id="btnFacebook" href="#" target="_blank" class="glass-card rounded-2xl p-2.5 flex flex-col items-center justify-center gap-1.5 hover:bg-bmcGreen-800/40 hover:border-blue-500/50 transition-all group">
+                    <div class="w-9 h-9 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-base group-hover:scale-110 transition-transform">
                         <i class="fa-brands fa-facebook-f"></i>
                     </div>
-                    <span class="text-xs font-medium text-slate-200 flex items-center gap-1">
-                        <i class="fa-brands fa-facebook text-blue-400"></i> فيسبوك
-                    </span>
+                    <span class="text-[11px] font-medium text-slate-200">فيسبوك</span>
+                </a>
+
+                <a id="btnYoutube" href="#" target="_blank" class="glass-card rounded-2xl p-2.5 flex flex-col items-center justify-center gap-1.5 hover:bg-bmcGreen-800/40 hover:border-red-500/50 transition-all group">
+                    <div class="w-9 h-9 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-base group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <span class="text-[11px] font-medium text-slate-200">يوتيوب</span>
                 </a>
             </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="flex gap-2">
-            <a id="btnSoundCloudDirect" href="https://soundcloud.com/ahmed-habib-816298036/sets/muslim-list" target="_blank" class="flex-1 glass-card hover:bg-emerald-800/40 border border-gold-500/30 rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-gold-300 font-medium text-xs transition-all">
-                <i class="fa-brands fa-soundcloud text-orange-400 text-sm"></i>
-                <span>فتح في SoundCloud</span>
-            </a>
-            
-            <button type="button" onclick="shareLink(event)" class="flex-1 gold-gradient-bg text-slate-950 font-bold rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-xs shadow-lg shadow-gold-500/20 active:scale-95 transition-all">
+        <!-- زر مشاركة الصفحة -->
+        <div>
+            <button type="button" onclick="shareLink(event)" class="w-full glass-card hover:bg-bmcGreen-800/50 text-bmcGold-300 font-bold rounded-2xl py-3.5 px-4 flex items-center justify-center gap-2 text-xs border border-bmcGold-500/40 active:scale-95 transition-all shadow-md">
                 <i class="fa-solid fa-share-nodes text-sm"></i>
-                <span>مشاركة الرابط</span>
+                <span>مشاركة القائمة الإسلامية (صدقة جارية)</span>
             </button>
         </div>
 
-        <!-- Footer & Admin Trigger -->
+        <!-- Footer & Admin Lock Icon -->
         <div class="text-center mt-10 relative">
-            <p class="text-[11px] text-emerald-300/40">صدقة جارية - تقبل الله منا ومنكم صالح الأعمال</p>
-            
-            <button type="button" onclick="openAdminLogin(event)" class="mt-4 text-emerald-800 hover:text-gold-500 text-xs transition-colors p-2" title="دخول إدارة الشركة">
+            <p class="text-[11px] text-emerald-300/40">جميع الحقوق محفوظة © BMC BioMedical</p>
+
+            <button type="button" onclick="openAdminLogin(event)" class="mt-3 text-emerald-900 hover:text-bmcGold-400 text-xs transition-colors p-2" title="إدارة الكارت">
                 <i class="fa-solid fa-lock"></i>
             </button>
         </div>
 
     </div>
 
-    <!-- Admin Login Modal -->
+    <!-- Modal تسجيل دخول الإدارة -->
     <div id="loginModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card bg-emerald-950 border border-gold-500/40 rounded-2xl w-full max-w-xs p-5 space-y-4 text-right">
-            <div class="flex justify-between items-center border-b border-emerald-800/60 pb-3">
-                <h3 class="text-sm font-bold text-gold-400 flex items-center gap-2">
-                    <i class="fa-solid fa-user-shield"></i> لوحة إدارة الشركة (BMC)
+        <div class="glass-card bg-bmcGreen-950 border border-bmcGold-500/40 rounded-2xl w-full max-w-xs p-5 space-y-4 text-right">
+            <div class="flex justify-between items-center border-b border-emerald-800/50 pb-3">
+                <h3 class="text-sm font-bold text-bmcGold-400 flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield"></i> إدارة بطاقة BMC
                 </h3>
                 <button type="button" onclick="closeAdminLogin(event)" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            
+
             <div>
-                <label class="block text-emerald-200 text-xs mb-1">كلمة السر</label>
-                <input type="password" id="adminPasswordInput" placeholder="أدخل كلمة السر..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 text-xs focus:outline-none focus:border-gold-400">
+                <label class="block text-slate-200 text-xs mb-1">كلمة السر</label>
+                <input type="password" id="adminPasswordInput" placeholder="أدخل كلمة السر..." class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2.5 text-slate-100 text-xs focus:outline-none focus:border-bmcGold-400">
             </div>
 
-            <button type="button" onclick="verifyAdminPass(event)" class="w-full gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs">دخول اللوحة</button>
+            <button type="button" onclick="verifyAdminPass(event)" class="w-full btn-gold-grad text-slate-950 font-bold py-2.5 rounded-lg text-xs">دخول اللوحة</button>
         </div>
     </div>
 
-    <!-- Admin Control Panel Modal -->
+    <!-- Modal لوحة التحكم -->
     <div id="adminPanelModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card bg-emerald-950 border border-gold-500/50 rounded-2xl w-full max-w-md p-5 space-y-4 text-right max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b border-emerald-800/60 pb-3">
-                <h3 class="text-base font-bold text-gold-400 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders"></i> التحكم في البيانات 
+        <div class="glass-card bg-bmcGreen-950 border border-bmcGold-500/50 rounded-2xl w-full max-w-md p-5 space-y-4 text-right max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-emerald-800/50 pb-3">
+                <h3 class="text-base font-bold text-bmcGold-400 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> تعديل بيانات القائمة
                 </h3>
                 <button type="button" onclick="closeAdminPanel(event)" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
             <div class="space-y-3 text-xs">
                 <div>
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-image text-gold-400"></i> لوجو الشركة الرسمي</label>
-                    <input type="file" id="inputLogoFile" accept="image/*" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2 text-slate-100 text-xs file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gold-500 file:text-slate-950 hover:file:bg-gold-400">
-                    <button type="button" onclick="resetLogo(event)" class="text-[10px] text-red-400 hover:underline mt-1 block">استعادة اللوجو الافتراضي</button>
+                    <label class="block text-slate-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-image text-bmcGold-400"></i> لوجو الشركة / المؤسسة</label>
+                    <input type="file" id="inputLogoFile" accept="image/*" class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2 text-slate-100 text-xs file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-bmcGold-400 file:text-slate-950">
+                    <button type="button" onclick="resetLogo(event)" class="text-[10px] text-red-400 hover:underline mt-1 block">استعادة الشعار الافتراضي</button>
                 </div>
 
                 <div>
-                    <label class="block text-emerald-200 mb-1">اسم القائمة / عنوان الشركة</label>
-                    <input type="text" id="inputTitle" placeholder="اتركه فارغاً للإبقاء على الحالي" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
+                    <label class="block text-slate-200 mb-1">العنوان الرئيسي</label>
+                    <input type="text" id="inputTitle" class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-bmcGold-400">
                 </div>
 
                 <div>
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-soundcloud text-orange-400"></i> رابط SoundCloud القائمة</label>
-                    <input type="text" id="inputSoundcloud" placeholder="مثال: https://soundcloud.com/..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <label class="block text-slate-200 mb-1">الوصف الفرعي</label>
+                    <input type="text" id="inputSubtitle" class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-bmcGold-400">
                 </div>
 
-                <div class="border-t border-emerald-800/60 pt-2">
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-map-location-dot text-red-400"></i> رابط خرائط فرع كفر الشيخ</label>
-                    <input type="text" id="inputKafrLoc" placeholder="رابط Google Maps لفرع كفر الشيخ" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                <div class="border-t border-emerald-800/50 pt-2">
+                    <label class="block text-slate-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-music text-bmcGold-400"></i> رابط صوت المشغل (SoundCloud Track URL)</label>
+                    <input type="text" id="inputSoundcloud" class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-bmcGold-400 text-left dir-ltr">
                 </div>
 
-                <div>
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-map-location-dot text-gold-400"></i> رابط خرائط فرع التجمع الخامس</label>
-                    <input type="text" id="inputFifthLoc" placeholder="رابط Google Maps لفرع التجمع الخامس" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
-                </div>
-
-                <div>
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-star text-amber-400"></i> رابط تقييم العملاء (Google Review Link)</label>
-                    <input type="text" id="inputReviewUrl" placeholder="رابط تقييم جوجل لشركتكم" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
-                </div>
-
-                <div class="border-t border-emerald-800/60 pt-2">
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-whatsapp text-emerald-400"></i> رقم الواتساب الرسمي (2010XXXXXXXX)</label>
-                    <input type="text" id="inputWhatsapp" placeholder="مثال: 201012345678" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                <div class="border-t border-emerald-800/50 pt-2">
+                    <label class="block text-slate-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-whatsapp text-emerald-400"></i> رقم الواتساب (2010XXXXXXXX)</label>
+                    <input type="text" id="inputWhatsapp" class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-bmcGold-400 text-left dir-ltr">
                 </div>
 
                 <div>
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-linkedin text-blue-400"></i> رابط صفحة LinkedIn</label>
-                    <input type="text" id="inputLinkedin" placeholder="اتركه فارغاً للإبقاء على الحالي" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <label class="block text-slate-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-globe text-bmcGold-400"></i> رابط الموقع الإلكتروني</label>
+                    <input type="text" id="inputWebsite" class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-bmcGold-400 text-left dir-ltr">
                 </div>
 
                 <div>
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-facebook text-blue-400"></i> رابط صفحة Facebook</label>
-                    <input type="text" id="inputFacebook" placeholder="اتركه فارغاً للإبقاء على الحالي" class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400 text-left dir-ltr">
+                    <label class="block text-slate-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-facebook text-blue-400"></i> رابط صفحة الفيسبوك</label>
+                    <input type="text" id="inputFacebook" class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-bmcGold-400 text-left dir-ltr">
                 </div>
 
-                <div class="border-t border-emerald-800/60 pt-3 mt-2">
-                    <label class="block text-emerald-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-key text-gold-400"></i> تغيير كلمة سر اللوحة</label>
-                    <input type="password" id="inputNewPassword" placeholder="كلمة سر جديدة (اختياري)..." class="w-full bg-emerald-900/60 border border-emerald-700/50 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-gold-400">
+                <div>
+                    <label class="block text-slate-200 mb-1 flex items-center gap-1.5"><i class="fa-brands fa-youtube text-red-400"></i> رابط قناة اليوتيوب</label>
+                    <input type="text" id="inputYoutube" class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-bmcGold-400 text-left dir-ltr">
+                </div>
+
+                <div class="border-t border-emerald-800/50 pt-3 mt-2">
+                    <label class="block text-slate-200 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-key text-bmcGold-400"></i> كلمة سر اللوحة الجديدة</label>
+                    <input type="password" id="inputNewPassword" placeholder="اتركه فارغاً للحفاظ على القديمة" class="w-full bg-bmcGreen-900/80 border border-emerald-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-bmcGold-400">
                 </div>
             </div>
 
             <div class="flex gap-2 pt-3">
-                <button type="button" id="saveBtn" onclick="saveAdminSettings(event)" class="flex-1 gold-gradient-bg text-slate-950 font-bold py-2.5 rounded-lg text-xs shadow-md">حفظ وتحديث التغييرات</button>
-                <button type="button" onclick="closeAdminPanel(event)" class="px-4 bg-emerald-900 text-slate-300 rounded-lg text-xs hover:bg-emerald-800">إلغاء</button>
+                <button type="button" onclick="saveAdminSettings(event)" class="flex-1 btn-gold-grad text-slate-950 font-bold py-2.5 rounded-lg text-xs shadow-md">حفظ وتحديث</button>
+                <button type="button" onclick="closeAdminPanel(event)" class="px-4 bg-emerald-900/80 text-slate-300 rounded-lg text-xs hover:bg-emerald-800">إلغاء</button>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-gold-500 text-slate-950 px-4 py-2 rounded-full font-bold text-xs shadow-lg hidden z-50 flex items-center gap-2">
+    <!-- Toast الإشعارات -->
+    <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-bmcGold-400 text-slate-950 px-4 py-2 rounded-full font-bold text-xs shadow-lg hidden z-50 flex items-center gap-2">
         <i class="fa-solid fa-check-circle"></i>
         <span id="toastMsg">تم التحديث بنجاح</span>
     </div>
 
+    <!-- JavaScript الإعدادات للوظائف الأساسية -->
     <script>
-        // JSONBin Integration Config
-        const BIN_ID = "6aa5ef51ffd5d16053ffe22e";
-        const API_KEY = "$2a$10$aE5HrQtOq9c.pmZ5/LENeebVURVzbsql90JeT43vDyKEsGtNSk7Xu";
-        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
-
         const defaultConfig = {
             title: "BMC - Muslim List",
             subtitle: "تلاوات قرآنية عذبة وأذكار الصباح والمساء",
-            soundcloudUrl: "https://soundcloud.com/ahmed-habib-816298036/sets/muslim-list",
-            kafrLoc: "https://maps.google.com",
-            fifthLoc: "https://maps.google.com",
-            reviewUrl: "https://g.page",
-            whatsapp: "201000000000",
-            linkedin: "https://linkedin.com",
-            facebook: "https://facebook.com",
+            soundcloudUrl: "https://api.soundcloud.com/tracks/1149491629",
+            azkarSabah: "https://www.hisnmuslim.com/ar/ar_azkar_sabah.html",
+            azkarMasaa: "https://www.hisnmuslim.com/ar/ar_azkar_masaa.html",
+            quranRadio: "https://quranyradio.com/",
+            fullQuran: "https://mp3quran.net/",
+            whatsapp: "",
+            website: "",
+            facebook: "",
+            youtube: "",
             logoBase64: "",
             adminPass: "bmc2026"
         };
 
         let currentConfig = Object.assign({}, defaultConfig);
 
-        // جلب البيانات من السحابة مباشرة عند فتح الصفحة من أي جهاز
-        async function loadConfigFromCloud() {
-            try {
-                const response = await fetch(`${API_URL}/latest`, {
-                    headers: {
-                        'X-Master-Key': API_KEY
-                    }
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    currentConfig = Object.assign({}, defaultConfig, data.record);
-                    localStorage.setItem('bmc_nfc_global_config', JSON.stringify(currentConfig));
-                } else {
-                    loadLocalFallback();
-                }
-            } catch (error) {
-                console.error("Cloud fetch failed, using local cache:", error);
-                loadLocalFallback();
+        function loadConfig() {
+            const saved = localStorage.getItem('bmc_muslim_config');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    currentConfig = Object.assign({}, defaultConfig, parsed);
+                } catch(e) {}
             }
             applyConfigToUI();
         }
 
-        function loadLocalFallback() {
-            const saved = localStorage.getItem('bmc_nfc_global_config');
-            if (saved) {
-                try {
-                    currentConfig = Object.assign({}, defaultConfig, JSON.parse(saved));
-                } catch(e) {}
+        function setValidHref(elementId, url) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            if (url && url.trim() !== "" && url !== "#") {
+                el.href = url;
+                el.removeAttribute('tabindex');
+                el.classList.remove('opacity-50', 'pointer-events-none');
+            } else {
+                el.href = "javascript:void(0)";
+                el.classList.add('opacity-50', 'pointer-events-none');
             }
-        }
-
-        function formatSoundCloudEmbedUrl(url) {
-            if (!url) return "";
-            if (url.includes('w.soundcloud.com/player')) return url;
-            let cleanUrl = url.split('?')[0];
-            return `https://w.soundcloud.com/player/?url=${encodeURIComponent(cleanUrl)}&color=%23004d40&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
         }
 
         function applyConfigToUI() {
             document.getElementById('displayTitle').innerText = currentConfig.title;
-            
+            document.getElementById('displaySubtitle').innerText = currentConfig.subtitle;
+
             const defaultIcon = document.getElementById('defaultIcon');
             const customLogoImg = document.getElementById('customLogoImg');
 
-            if (currentConfig.logoBase64) {
+            if (currentConfig.logoBase64 && currentConfig.logoBase64.trim() !== "") {
                 customLogoImg.src = currentConfig.logoBase64;
                 customLogoImg.classList.remove('hidden');
                 defaultIcon.classList.add('hidden');
@@ -405,18 +407,22 @@
                 defaultIcon.classList.remove('hidden');
             }
 
+            // تحديث رابط SoundCloud
             if (currentConfig.soundcloudUrl) {
-                document.getElementById('scPlayer').src = formatSoundCloudEmbedUrl(currentConfig.soundcloudUrl);
-                document.getElementById('btnSoundCloudDirect').href = currentConfig.soundcloudUrl.split('?')[0];
+                const trackUrl = encodeURIComponent(currentConfig.soundcloudUrl);
+                document.getElementById('audioPlayerIframe').src = `https://w.soundcloud.com/player/?url=${trackUrl}&color=%23f59e0b&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
             }
 
-            document.getElementById('btnLocKafr').href = currentConfig.kafrLoc || '#';
-            document.getElementById('btnLocFifth').href = currentConfig.fifthLoc || '#';
-            document.getElementById('btnReview').href = currentConfig.reviewUrl || '#';
+            setValidHref('btnAzkarSabah', currentConfig.azkarSabah);
+            setValidHref('btnAzkarMasaa', currentConfig.azkarMasaa);
+            setValidHref('btnQuranRadio', currentConfig.quranRadio);
+            setValidHref('btnFullQuran', currentConfig.fullQuran);
+            setValidHref('btnWebsite', currentConfig.website);
+            setValidHref('btnFacebook', currentConfig.facebook);
+            setValidHref('btnYoutube', currentConfig.youtube);
 
-            document.getElementById('btnWhatsapp').href = currentConfig.whatsapp ? `https://wa.me/${currentConfig.whatsapp.replace(/[^0-9]/g, '')}` : '#';
-            document.getElementById('btnLinkedin').href = currentConfig.linkedin || '#';
-            document.getElementById('btnFacebook').href = currentConfig.facebook || '#';
+            const cleanWa = currentConfig.whatsapp ? currentConfig.whatsapp.replace(/[^0-9]/g, '') : '';
+            setValidHref('btnWhatsapp', cleanWa ? `https://wa.me/${cleanWa}` : '');
         }
 
         function openAdminLogin(e) {
@@ -448,14 +454,13 @@
         }
 
         function populateAdminFields() {
-            document.getElementById('inputTitle').value = currentConfig.title;
-            document.getElementById('inputSoundcloud').value = currentConfig.soundcloudUrl;
-            document.getElementById('inputKafrLoc').value = currentConfig.kafrLoc;
-            document.getElementById('inputFifthLoc').value = currentConfig.fifthLoc;
-            document.getElementById('inputReviewUrl').value = currentConfig.reviewUrl;
-            document.getElementById('inputWhatsapp').value = currentConfig.whatsapp;
-            document.getElementById('inputLinkedin').value = currentConfig.linkedin;
-            document.getElementById('inputFacebook').value = currentConfig.facebook;
+            document.getElementById('inputTitle').value = currentConfig.title || '';
+            document.getElementById('inputSubtitle').value = currentConfig.subtitle || '';
+            document.getElementById('inputSoundcloud').value = currentConfig.soundcloudUrl || '';
+            document.getElementById('inputWhatsapp').value = currentConfig.whatsapp || '';
+            document.getElementById('inputWebsite').value = currentConfig.website || '';
+            document.getElementById('inputFacebook').value = currentConfig.facebook || '';
+            document.getElementById('inputYoutube').value = currentConfig.youtube || '';
             document.getElementById('inputNewPassword').value = '';
         }
 
@@ -463,38 +468,34 @@
             if (e) e.preventDefault();
             currentConfig.logoBase64 = "";
             document.getElementById('inputLogoFile').value = "";
+            localStorage.setItem('bmc_muslim_config', JSON.stringify(currentConfig));
+            applyConfigToUI();
             showToast("تم إزالة اللوجو المخصص");
         }
 
-        async function saveAdminSettings(e) {
+        function saveAdminSettings(e) {
             if (e) e.preventDefault();
-
-            const saveBtn = document.getElementById('saveBtn');
-            saveBtn.disabled = true;
-            saveBtn.innerText = "جاري الحفظ بالسحابة...";
 
             const fileInput = document.getElementById('inputLogoFile');
             const newPass = document.getElementById('inputNewPassword').value.trim();
 
-            const performSave = async (logoData) => {
+            const performSave = (logoData) => {
                 const titleVal = document.getElementById('inputTitle').value.trim();
+                const subVal = document.getElementById('inputSubtitle').value.trim();
                 const scVal = document.getElementById('inputSoundcloud').value.trim();
-                const kafrVal = document.getElementById('inputKafrLoc').value.trim();
-                const fifthVal = document.getElementById('inputFifthLoc').value.trim();
-                const revVal = document.getElementById('inputReviewUrl').value.trim();
                 const waVal = document.getElementById('inputWhatsapp').value.trim();
-                const liVal = document.getElementById('inputLinkedin').value.trim();
+                const webVal = document.getElementById('inputWebsite').value.trim();
                 const fbVal = document.getElementById('inputFacebook').value.trim();
+                const ytVal = document.getElementById('inputYoutube').value.trim();
 
                 if (titleVal !== "") currentConfig.title = titleVal;
+                if (subVal !== "") currentConfig.subtitle = subVal;
                 if (scVal !== "") currentConfig.soundcloudUrl = scVal;
-                if (kafrVal !== "") currentConfig.kafrLoc = kafrVal;
-                if (fifthVal !== "") currentConfig.fifthLoc = fifthVal;
-                if (revVal !== "") currentConfig.reviewUrl = revVal;
                 if (waVal !== "") currentConfig.whatsapp = waVal;
-                if (liVal !== "") currentConfig.linkedin = liVal;
+                if (webVal !== "") currentConfig.website = webVal;
                 if (fbVal !== "") currentConfig.facebook = fbVal;
-                
+                if (ytVal !== "") currentConfig.youtube = ytVal;
+
                 if (logoData !== null) {
                     currentConfig.logoBase64 = logoData;
                 }
@@ -503,32 +504,10 @@
                     currentConfig.adminPass = newPass;
                 }
 
-                // حفظ البيانات بالسحابة مع التوثيق بواسطة الـ Master Key
-                try {
-                    const res = await fetch(API_URL, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-Master-Key': API_KEY
-                        },
-                        body: JSON.stringify(currentConfig)
-                    });
-
-                    if (res.ok) {
-                        localStorage.setItem('bmc_nfc_global_config', JSON.stringify(currentConfig));
-                        applyConfigToUI();
-                        closeAdminPanel();
-                        showToast("تم الحفظ بالسحابة والتسميع على كافة الأجهزة!");
-                    } else {
-                        showToast("خطأ في الاتصال بالسحابة!");
-                    }
-                } catch (err) {
-                    console.error("Save failed:", err);
-                    showToast("فشل الاتصال بالسحابة، تم الحفظ محلياً فقط");
-                } finally {
-                    saveBtn.disabled = false;
-                    saveBtn.innerText = "حفظ وتحديث التغييرات";
-                }
+                localStorage.setItem('bmc_muslim_config', JSON.stringify(currentConfig));
+                applyConfigToUI();
+                closeAdminPanel();
+                showToast("تم حفظ التعديلات بنجاح!");
             };
 
             if (fileInput.files && fileInput.files[0]) {
@@ -547,12 +526,12 @@
             if (navigator.share) {
                 navigator.share({
                     title: currentConfig.title,
-                    text: 'استمع إلى قائمة الأذكار والقرآن الكريم',
+                    text: 'تفضل بزيارة قائمة BMC الإسلامية للتلاوات والأذكار',
                     url: window.location.href,
                 }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(window.location.href);
-                showToast("تم نسخ رابط الصفحة للمحافظة");
+                showToast("تم نسخ رابط القائمة للحافظة");
             }
         }
 
@@ -561,10 +540,10 @@
             document.getElementById('toastMsg').innerText = msg;
             toast.classList.remove('hidden');
             toast.classList.add('toast-slide-up');
-            setTimeout(() => { toast.classList.add('hidden'); }, 3000);
+            setTimeout(() => { toast.classList.add('hidden'); }, 2500);
         }
 
-        window.onload = loadConfigFromCloud;
+        window.onload = loadConfig;
     </script>
 </body>
 </html>
